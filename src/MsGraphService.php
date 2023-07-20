@@ -30,7 +30,7 @@ class MsGraphService {
             $model = $this->generateAccessToken();
         }
         if($model && $model instanceof MsGraphToken) {
-            return $token->access_token;
+            return $model->access_token;
         }
         
         return false;
