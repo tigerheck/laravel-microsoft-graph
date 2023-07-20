@@ -21,7 +21,7 @@ class MsGraphService {
 
     public function http(){
         $accessToken = $this->getAccessToken();
-        return Http::withToken($accessToken)->baseUrl(self::baseUrl);
+        return Http::withToken($accessToken)->baseUrl(self::$baseUrl);
     }
 
     private function getAccessToken($token_type = 'Bearer') {
@@ -57,8 +57,24 @@ class MsGraphService {
         return MsGraphToken::create($data);
     }
 
-    public function getForms($access_by = null) {
-        return self::responseCollection( $this->http->get('/platform/v1/forms'), $access_by);
+    public function get($endpoint = '/', $data = '', $access_by = null) {
+        return self::responseCollection( $this->http->get($endpoint, $data), $access_by);
+    }
+
+    public function post($endpoint = '/', $data = [], $access_by = null) {
+        return self::responseCollection( $this->http->post($endpoint, $data), $access_by);
+    }
+
+    public function put($endpoint = '/', $data = [], $access_by = null) {
+        return self::responseCollection( $this->http->put($endpoint, $data), $access_by);
+    }
+
+    public function patch($endpoint = '/', $data = [], $access_by = null) {
+        return self::responseCollection( $this->http->patch($endpoint, $data), $access_by);
+    }
+
+    public function delete($endpoint = '/', $data = [], $access_by = null) {
+        return self::responseCollection( $this->http->delete($endpoint, $data), $access_by);
     }
 
     private function responseCollection($response, $access_by) {
