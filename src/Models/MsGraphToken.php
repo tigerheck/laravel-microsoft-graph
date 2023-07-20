@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class MsGraphToken extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'msgraph_tokens';
 
     /**
     * The attributes that are mass assignable.
