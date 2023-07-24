@@ -57,30 +57,30 @@ class MsGraphService {
         return MsGraphToken::create($data);
     }
 
-    public function get($endpoint = '/', $data = '', $access_by = null) {
-        return self::responseCollection( $this->http->get($endpoint, $data), $access_by);
+    public function get($endpoint = '/', $data = '', $access_by = null, $withCollection = false) {
+        return self::responseCollection( $this->http->get($endpoint, $data), $access_by, $withCollection);
     }
 
-    public function post($endpoint = '/', $data = [], $access_by = null) {
-        return self::responseCollection( $this->http->post($endpoint, $data), $access_by);
+    public function post($endpoint = '/', $data = [], $access_by = null, $withCollection = false) {
+        return self::responseCollection( $this->http->post($endpoint, $data), $access_by, $withCollection);
     }
 
-    public function put($endpoint = '/', $data = [], $access_by = null) {
-        return self::responseCollection( $this->http->put($endpoint, $data), $access_by);
+    public function put($endpoint = '/', $data = [], $access_by = null, $withCollection = false) {
+        return self::responseCollection( $this->http->put($endpoint, $data), $access_by, $withCollection);
     }
 
-    public function patch($endpoint = '/', $data = [], $access_by = null) {
-        return self::responseCollection( $this->http->patch($endpoint, $data), $access_by);
+    public function patch($endpoint = '/', $data = [], $access_by = null, $withCollection = false) {
+        return self::responseCollection( $this->http->patch($endpoint, $data), $access_by, $withCollection);
     }
 
-    public function delete($endpoint = '/', $data = [], $access_by = null) {
-        return self::responseCollection( $this->http->delete($endpoint, $data), $access_by);
+    public function delete($endpoint = '/', $data = [], $access_by = null, $withCollection = false) {
+        return self::responseCollection( $this->http->delete($endpoint, $data), $access_by, $withCollection);
     }
 
-    private function responseCollection($response, $access_by) {
+    private function responseCollection($response, $access_by, $withCollection = true) {
         if($response->successful()) {
             $data = $response->json($access_by);
-            return collect($data);
+            return $withCollection ? collect($data) : $data;
         }
         return $response->json();
     }
