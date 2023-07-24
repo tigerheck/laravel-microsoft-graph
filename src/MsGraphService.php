@@ -25,7 +25,7 @@ class MsGraphService {
     }
 
     private function getAccessToken($token_type = 'Bearer') {
-        $model = MsGraphToken::where('token_type', 'Bearer')->first();
+        $model = MsGraphToken::where('token_type', 'Bearer')->whereRaw("TIME_TO_SEC(TIMEDIFF(CURRENT_TIMESTAMP, created_at)) < expires_in")->first();
         if(!$model) {
             $model = $this->generateAccessToken();
         }
