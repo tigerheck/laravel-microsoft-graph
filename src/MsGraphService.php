@@ -54,6 +54,7 @@ class MsGraphService {
     }
 
     private function storeAccessToken($data) {
+        MsGraphToken::whereNotNull('id')->delete();
         return MsGraphToken::create($data);
     }
 
